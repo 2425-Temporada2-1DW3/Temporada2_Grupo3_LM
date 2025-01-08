@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('../img/fondo.png') no-repeat center center fixed;
+    background-size: cover;
+    color: black;
+}
+
+header {
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.main {
+    margin: 20px;
+    padding: 15%;
+    background: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    border-radius: 15px;
+}
+
+footer {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    text-align: center;
+}
+footer li{
+    text-decoration: rgb(0, 0, 0);
+}
+
+.footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer-top div {
+    margin: 10px;
+}
+
+.social-icons img {
+    width: 40px;
+    margin: 0 10px;
+}
+
+.subscribe {
+    text-align: center;
+    background: rgba(129, 129, 129, 0.8);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.subscribe input[type="email"] {
+    padding: 10px;
+    margin-top: 10px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .footer-top {
+        flex-direction: column;
+    }
+
+    .subscribe input[type="email"] {
+        width: 100%;
+    }
+}
