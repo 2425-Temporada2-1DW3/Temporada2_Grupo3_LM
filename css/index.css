@@ -24,6 +24,7 @@ header {
 nav ul {
     display: flex;
     list-style: none;
+    align-items: center;
 }
 
 nav ul li {
@@ -41,12 +42,44 @@ nav ul li a {
 }
 
 .main {
-    margin: 20px;
-    padding: 15%;
+    margin: 5px 20px 20px 20px;
+    padding: 60px;
     background: rgba(255, 255, 255, 0.8);
     text-align: center;
     border-radius: 15px;
 }
+
+/* Jugadores*/
+.tabla-jugadores{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+height: 100%;
+margin: 0px auto 20px;
+border-collapse: collapse;
+background-color: white;
+}
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+select {
+    margin: 20px;
+padding: 10px;
+background-color: chartreuse;
+border-radius: 50px;
+}
+/* Fin Jugadores*/
 
 footer {
     background-color: rgba(255, 255, 255, 0.8);

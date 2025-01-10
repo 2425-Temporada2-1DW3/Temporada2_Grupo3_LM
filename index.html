@@ -5,23 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Txurdi Liga</title>
     <link rel="stylesheet" href="./css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function cargarcontenido(url, titulo) {
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    dataType: "html",
+                    success: function (data) {
+                        $("#main").html(data);
+                        document.title = titulo + " - Grupo 3";
+                    },
+                    error: function () {
+                        $("#main").html("Error al cargar");
+                    }
+                });
+            }
+
+            $("nav ul li a").on("click", function (e) {
+                //e.preventDefault(); // Evita comportamiento por defecto del enlace
+                var url = $(this).data("url");
+                var titulo = $(this).text();
+                cargarcontenido(url, titulo);
+            });
+
+            var primeraOpcion = $("nav ul li a:first");
+            cargarcontenido(primeraOpcion.data("url"), primeraOpcion.text());
+        });
+    </script>
 </head>
 <body>
     <header>
         <img src="./img/logo.png" width="80px" alt="Logo Txurdi Liga">
         <nav>
             <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Jugadores</a></li>
-                <li><a href="#">Clasificación</a></li>
-                <li><a href="#">Noticias</a></li>
-                <li><a href="#">Contacto</a></li>
+                <li><a data-url="./paginas/inicio.html" href="#">Inicio</a></li>
+                <li><a  data-url="./paginas/jugadores.html" href="#">Jugadores</a></li>
+                <li><a  data-url="inicio.html" href="#">Clasificación</a></li>
+                <li><a  data-url="inicio.html" href="#">Noticias</a></li>
+                <li><a data-url="inicio.html" href="#">Contacto</a></li>
             </ul>
         </nav>
     </header>
-    <div class="main">
-        <h1>Contenido principal</h1>
-        <p>Aquí va el contenido de la página principal.</p>
+    <div class="main" id="main">
+         <!-- Contenido cargado dinámicamente -->
     </div>
     <footer>
         <div class="footer-top">

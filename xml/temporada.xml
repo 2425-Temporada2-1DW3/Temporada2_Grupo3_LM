@@ -1,4 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
+<?xml-model href="temporada.xsd" ?>
 <?xml-stylesheet type="text/xsl" href="equipo.xsl"?>
 <Temporadas>
     <Temporada>
@@ -1111,7 +1112,7 @@
     </Temporada>
     <Temporada>
         <Numero>2</Numero>
-        <Estado>En curso</Estado>
+        <Estado>Por Empezar</Estado>
         <Equipos>
             <Equipo>
                 <Nombre>Athletic Club</Nombre>
@@ -2219,7 +2220,7 @@
     </Temporada>
     <Temporada>
         <Numero>3</Numero>
-        <Estado>En curso</Estado>
+        <Estado>Finalizado</Estado>
         <Equipos>
             <Equipo>
                 <Nombre>Equipo A - Temp 3</Nombre>
