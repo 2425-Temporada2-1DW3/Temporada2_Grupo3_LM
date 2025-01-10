@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Root Element -->
+  <xs:element name="Temporadas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Temporada" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Numero" type="xs:int"/>
+              <xs:element name="Estado" type="xs:string"/>
+              <xs:element name="Equipos">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Equipo" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Nombre" type="xs:string"/>
+                          <xs:element name="Jugadores">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Jugador" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="IDju" type="xs:int"/>
+                                      <xs:element name="Nombre" type="xs:string"/>
+                                      <xs:element name="Nacimiento" type="xs:date"/>
+                                      <xs:element name="Nacionalidad" type="xs:string"/>
+                                      <xs:element name="NumCamiseta" type="xs:int"/>
+                                      <xs:element name="Retirado" type="xs:string"/>
+                                      <xs:element name="Posicion" type="xs:string"/>
+                                      <xs:element name="Imagen" type="xs:string" minOccurs="0"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Jornadas">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Jornada" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Numero" type="xs:int"/>
+                          <xs:element name="Partidos">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Partido" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="EquipoLocal" type="xs:string"/>
+                                      <xs:element name="EquipoVisitante" type="xs:string"/>
+                                      <xs:element name="GolesLocal" type="xs:int"/>
+                                      <xs:element name="GolesVisitante" type="xs:int"/>
+                                      <xs:element name="Estado" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
