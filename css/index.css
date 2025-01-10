@@ -4,11 +4,18 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: Arial, sans-serif;
     background: url('../img/fondo.png') no-repeat center center fixed;
     background-size: cover;
     color: black;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 }
 
 header {
@@ -31,8 +38,8 @@ nav ul li {
     margin: 0 15px;
 }
 
-nav ul li a:hover{
-   color: red;
+nav ul li a:hover {
+    color: red;
 }
 
 nav ul li a {
@@ -47,10 +54,11 @@ nav ul li a {
     background: rgba(255, 255, 255, 0.8);
     text-align: center;
     border-radius: 15px;
+    flex: 1; /* Hace que el contenido principal ocupe el espacio disponible */
 }
 
-/* Jugadores*/
-.tabla-jugadores{
+/* Jugadores */
+.tabla-jugadores {
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -60,34 +68,40 @@ nav ul li a {
 
 table {
     width: 100%;
-height: 100%;
-margin: 0px auto 20px;
-border-collapse: collapse;
-background-color: white;
+    height: auto;
+    margin: 0px auto 20px;
+    border-collapse: collapse;
+    background-color: white;
 }
+
 th, td {
     border: 1px solid black;
     padding: 10px;
     text-align: center;
 }
+
 th {
     background-color: #f2f2f2;
 }
+
 select {
     margin: 20px;
-padding: 10px;
-background-color: chartreuse;
-border-radius: 50px;
+    padding: 10px;
+    background-color: chartreuse;
+    border-radius: 50px;
 }
-/* Fin Jugadores*/
+/* Fin Jugadores */
 
 footer {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgb(0, 0, 0);
     padding: 20px;
     text-align: center;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
 }
-footer li{
+
+footer li {
     text-decoration: rgb(0, 0, 0);
 }
 
