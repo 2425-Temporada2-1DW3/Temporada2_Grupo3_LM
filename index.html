@@ -66,12 +66,29 @@
             <div class="subscribe">
                 <h3>Subscríbete:</h3>
                 <p>A nuestra newsletter para no perderte nada</p>
-                <input type="email" placeholder="Introduce tu correo">
+                <input type="email" id="email" placeholder="Introduce tu correo">
+                <button id="subscribeBtn">Subscribirse</button>
+            </div>
+            <div class="floating-message" id="thankYouMessage">
+                ¡Gracias por unirte a nuestra newsletter!
             </div>
             <div>
                 <img src="./img/ministerio.png" width="200px" height="100px" alt="Gobierno de España">
             </div>
         </div>
     </footer>
+    <script>
+        $(document).ready(function () {
+            $("#subscribeBtn").click(function () {
+                const email = $("#email").val();
+                if (email.trim() !== "") {
+                    // Mostrar el mensaje flotante
+                    $("#thankYouMessage").fadeIn().delay(3000).fadeOut();
+                } else {
+                    alert("Por favor, introduce un correo válido.");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
