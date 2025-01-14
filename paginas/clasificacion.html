@@ -1,0 +1,92 @@
+<div class="tabla-clasificacion">
+    <h1>Clasificacion</h1>
+
+    <div class="listaclasificacion">
+    <form action="temporada">
+        <select name="temporadas" id="temporada">
+          <option value="temporada1">temporada 1</option>
+          <option value="temporada2">temporada 2</option>
+          <option value="temporada3">temporada 3</option>
+        </select>
+    </form>
+    <form action="equipos">
+        <select name="equipos" id="equipos">
+          <option value="equipo1">equipo 1</option>
+          <option value="equipo2">equipo 2</option>
+          <option value="equipo3">equipo 3</option>
+          <option value="equipo4">equipo 4</option>
+          <option value="equipo5">equipo 5</option>
+          <option value="equipo6">equipo 6</option>
+        </select>
+  </form>
+</div>
+</div>
+    <table id="tablaClasificacion">
+        <thead>
+            <tr>
+                <th>Posicion</th>
+                <th>Escudo</th>
+                <th>Nombre</th>
+                <th>Puntos</th>
+                <th>Partidos Jugados</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- Aquí se llenarán los datos -->
+        </tbody>
+    </table>
+
+    <script>
+        // Aquí pondremos el código JavaScript
+
+        // Código JavaScript para cargar el archivo XML desde un archivo externo
+        fetch('/xml/clasificacion.xml')  // Cambia a la ruta correcta de tu archivo XML
+            .then(response => response.text())  // Obtenemos el contenido del archivo como texto
+            .then(data => {
+                var parser = new DOMParser();
+                var xmlDoc = parser.parseFromString(data, "application/xml");
+
+                // Obtener todos los equipos
+                var equipos = xmlDoc.getElementsByTagName("equipo");
+
+                // Obtener el tbody de la tabla
+                var tbody = document.getElementById("tablaClasificacion").getElementsByTagName("tbody")[0];
+
+                // Recorrer los equipos y añadir filas a la tabla
+                for (var i = 0; i < equipos.length; i++) {
+                    var posicion = equipos[i].getElementsByTagName("posicion")[0].textContent;
+                    var escudo = equipos[i].getElementsByTagName("escudo")[0].textContent;
+                    var nombre = equipos[i].getElementsByTagName("nombre")[0].textContent;
+                    var puntos = equipos[i].getElementsByTagName("puntos")[0].textContent;
+                    var partidosJugados = equipos[i].getElementsByTagName("partidosJugados")[0].textContent;
+
+                    var tr = document.createElement("tr");
+
+                    // Crear las celdas (td) para cada dato
+                    var tdPosicion = document.createElement("td");
+                    tdPosicion.textContent = posicion;
+                    var tdEscudo = document.createElement("td");
+                    tdEscudo.innerHTML = `<img src="${escudo}" alt="Escudo" width="30" height="30">`;  // Mostrar el escudo como imagen
+                    var tdNombre = document.createElement("td");
+                    tdNombre.textContent = nombre;
+                    var tdPuntos = document.createElement("td");
+                    tdPuntos.textContent = puntos;
+                    var tdPartidos = document.createElement("td");
+                    tdPartidos.textContent = partidosJugados;
+
+                    // Añadir las celdas a la fila
+                    tr.appendChild(tdPosicion);
+                    tr.appendChild(tdEscudo);
+                    tr.appendChild(tdNombre);
+                    tr.appendChild(tdPuntos);
+                    tr.appendChild(tdPartidos);
+
+                    // Añadir la fila al cuerpo de la tabla
+                    tbody.appendChild(tr);
+                }
+            })
+            .catch(error => {
+                console.error('Error al cargar el archivo XML:', error);
+            });
+    </script>

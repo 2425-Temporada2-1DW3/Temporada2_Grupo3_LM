@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clasificacion>
+    <equipo>
+        <posicion>1</posicion>
+        <escudo>/img/escudos/escudo_equipo_a.png</escudo>
+        <nombre>Arna</nombre>
+        <puntos>45</puntos>
+        <partidosJugados>20</partidosJugados>
+    </equipo>
+    <equipo>
+        <posicion>2</posicion>
+        <escudo>/img/escudos/escudo_equipo_b.png</escudo>
+        <nombre>Equipo B</nombre>
+        <puntos>40</puntos>
+        <partidosJugados>20</partidosJugados>
+    </equipo>
+    <equipo>
+        <posicion>3</posicion>
+        <escudo>/img/escudos/escudo_equipo_c.png</escudo>
+        <nombre>Equipo C</nombre>
+        <puntos>38</puntos>
+        <partidosJugados>20</partidosJugados>
+    </equipo>
+</clasificacion>

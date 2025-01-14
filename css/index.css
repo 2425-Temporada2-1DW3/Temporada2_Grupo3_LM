@@ -57,7 +57,7 @@ nav ul li a {
     flex: 1; /* Hace que el contenido principal ocupe el espacio disponible */
 }
 
-/* Jugadores */
+/************************************************* Jugadores *****************************************************************/
 .tabla-jugadores {
     text-align: center;
     display: flex;
@@ -91,6 +91,8 @@ select {
     border-radius: 50px;
 }
 /* Fin Jugadores */
+
+
 
 footer {
     background-color: rgba(255, 255, 255, 0.8);
