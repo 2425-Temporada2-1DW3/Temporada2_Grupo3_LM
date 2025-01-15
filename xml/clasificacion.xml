@@ -36,4 +36,11 @@
         <puntos>38</puntos>
         <partidosJugados>20</partidosJugados>
     </equipo>
+    <equipo>
+        <posicion>6</posicion>
+        <escudo>/img/escudos/escudo_equipo_c.png</escudo>
+        <nombre>Equipo C</nombre>
+        <puntos>38</puntos>
+        <partidosJugados>20</partidosJugados>
+    </equipo>
 </clasificacion>
