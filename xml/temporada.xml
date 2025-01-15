@@ -1675,7 +1675,7 @@
                 </Jugadores>
             </Equipo>
             <Equipo>
-                <Nombre>Equipo E - Temp 2</Nombre>
+                <Nombre>Equipo E</Nombre>
                 <Jugadores>
                     <Jugador>
                         <IDju>151</IDju>
@@ -1815,7 +1815,7 @@
                 </Jugadores>
             </Equipo>
             <Equipo>
-                <Nombre>Equipo F - Temp 2</Nombre>
+                <Nombre>Equipo F</Nombre>
                 <Jugadores>
                     <Jugador>
                         <IDju>166</IDju>
