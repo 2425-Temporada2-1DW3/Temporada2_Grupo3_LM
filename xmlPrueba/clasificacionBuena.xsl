@@ -9,11 +9,13 @@
     <xsl:template match="/">
         <html>
             <head>
+            <!-- Vincular archivo CSS -->
+                <link rel="stylesheet" type="text/css" href="../css/index.css" />
                 <title>Clasificación de Temporada</title>
             </head>
             <body>
 
-                <table border="1">
+                <table class = "tabla-clasificacion">
                     <thead>
                         <tr>
                             <th>Posición</th>

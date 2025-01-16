@@ -111,6 +111,31 @@ object{
     margin-bottom: 0%;
 }
 
+.tabla-clasificacion {
+    text-align: center;
+    justify-content: space-between;
+    background-color: white;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    height: auto;
+    margin: 0px auto 20px;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
 
 
 /************************************************* Jugadores *****************************************************************/
