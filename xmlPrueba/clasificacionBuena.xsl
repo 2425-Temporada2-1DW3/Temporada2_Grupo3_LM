@@ -9,13 +9,12 @@
     <xsl:template match="/">
         <html>
             <head>
-            <!-- Vincular archivo CSS -->
+                <!-- Vincular archivo CSS -->
                 <link rel="stylesheet" type="text/css" href="../css/index.css" />
                 <title>Clasificación de Temporada</title>
             </head>
             <body>
-
-                <table class = "tabla-clasificacion">
+                <table class="tabla-clasificacion">
                     <thead>
                         <tr>
                             <th>Posición</th>
@@ -30,29 +29,31 @@
                         <xsl:for-each select="Temporadas/Temporada">
                             <xsl:if test="Numero=$temporadaSeleccionada">
                                 <!-- Iterar sobre equipos -->
-                                <xsl:for-each
-                                    select="Equipos/Equipo">
-
+                                <xsl:for-each select="Equipos/Equipo">
                                     <!-- Ordenar por puntos -->
-    <xsl:sort select="count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
-        (EquipoLocal=current()/Nombre and GolesLocal &gt; GolesVisitante) or
-        (EquipoVisitante=current()/Nombre and GolesVisitante &gt; GolesLocal)
-    ]) * 3 +
-    count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
-        (EquipoLocal=current()/Nombre or EquipoVisitante=current()/Nombre) and GolesLocal=GolesVisitante
-    ])" data-type="number" order="descending" />
+                                    <xsl:sort 
+                                        select="count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
+                                            (EquipoLocal=current()/Nombre and GolesLocal &gt; GolesVisitante) or
+                                            (EquipoVisitante=current()/Nombre and GolesVisitante &gt; GolesLocal)
+                                        ]) * 3 +
+                                        count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
+                                            (EquipoLocal=current()/Nombre or EquipoVisitante=current()/Nombre) and 
+                                            GolesLocal=GolesVisitante
+                                        ])" 
+                                        data-type="number" 
+                                        order="descending" 
+                                    />
 
-    <!-- Crear una variable para la posición -->
+                                    <!-- Crear una variable para la posición -->
                                     <xsl:variable name="posicion" select="position()" />
 
                                     <tr>
-                                         <td>
-                                                <!-- Mostrar la posición -->
-                                            <xsl:value-of select="$posicion" />
-                                            </td>
                                         <td>
-                                            <img src="{Imagen}" alt="{Nombre}" width="50"
-                                                height="50" />
+                                            <!-- Mostrar la posición -->
+                                            <xsl:value-of select="$posicion" />
+                                        </td>
+                                        <td>
+                                            <img src="{Imagen}" alt="{Nombre}" width="50" height="50" />
                                         </td>
                                         <td>
                                             <xsl:value-of select="Nombre" />
@@ -60,32 +61,35 @@
                                         <td>
                                             <!-- Contar partidos jugados -->
                                             <xsl:variable name="partidosJugados">
-                                                <xsl:value-of
+                                                <xsl:value-of 
                                                     select="count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
-            EquipoLocal=current()/Nombre or EquipoVisitante=current()/Nombre
-        ])" />
+                                                        EquipoLocal=current()/Nombre or 
+                                                        EquipoVisitante=current()/Nombre
+                                                    ])" 
+                                                />
                                             </xsl:variable>
                                             <xsl:value-of select="$partidosJugados" />
                                         </td>
-
                                         <td>
                                             <!-- Calcular puntos -->
                                             <xsl:variable name="victorias">
-                                                <xsl:value-of
+                                                <xsl:value-of 
                                                     select="count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
-            (EquipoLocal=current()/Nombre and GolesLocal &gt; GolesVisitante) or
-            (EquipoVisitante=current()/Nombre and GolesVisitante &gt; GolesLocal)
-        ])" />
+                                                        (EquipoLocal=current()/Nombre and GolesLocal &gt; GolesVisitante) or
+                                                        (EquipoVisitante=current()/Nombre and GolesVisitante &gt; GolesLocal)
+                                                    ])" 
+                                                />
                                             </xsl:variable>
                                             <xsl:variable name="empates">
-                                                <xsl:value-of
+                                                <xsl:value-of 
                                                     select="count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
-            (EquipoLocal=current()/Nombre or EquipoVisitante=current()/Nombre) and GolesLocal=GolesVisitante
-        ])" />
+                                                        (EquipoLocal=current()/Nombre or EquipoVisitante=current()/Nombre) and 
+                                                        GolesLocal=GolesVisitante
+                                                    ])" 
+                                                />
                                             </xsl:variable>
                                             <xsl:value-of select="($victorias * 3) + $empates" />
                                         </td>
-
                                     </tr>
                                 </xsl:for-each>
                             </xsl:if>
