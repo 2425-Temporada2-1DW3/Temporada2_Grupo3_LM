@@ -1,83 +1,45 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    <xsl:output method="html" encoding="UTF-8" indent="yes" />
-
-    <!-- Plantilla principal -->
-    <xsl:template match="/">
-        <html>
-            <head>
-                <title>Jugadores por Temporada y Equipo</title>
-                <style>
-                    table {
-                        border-collapse: collapse;
-                        width: 100%;
-                    }
-                    th, td {
-                        border: 1px solid black;
-                        padding: 8px;
-                        text-align: left;
-                    }
-                    th {
-                        background-color: #f2f2f2;
-                    }
-                </style>
-            </head>
-            <body>
-                
-                <!-- Formulario para seleccionar temporada -->
-                <form id="filterForm">
-                    <label for="temporada">Selecciona una Temporada:</label>
-                    <select name="temporada" id="temporada" onchange="document.getElementById('filterForm').submit();">
-                        <option value="">-- Selecciona --</option>
-                        <xsl:for-each select="Temporadas/Temporada">
-                            <option value="{Numero}">
-                                Temporada <xsl:value-of select="Numero" />
-                            </option>
-                        </xsl:for-each>
-                    </select>
-
-                    <!-- Formulario para seleccionar equipo -->
-                    <label for="equipo">Selecciona un Equipo:</label>
-                    <select name="equipo" id="equipo" onchange="document.getElementById('filterForm').submit();">
-                        <option value="">-- Selecciona --</option>
-                        <xsl:for-each select="Temporadas/Temporada/Equipos/Equipo">
-                            <option value="{Nombre}">
-                                <xsl:value-of select="Nombre" />
-                            </option>
-                        </xsl:for-each>
-                    </select>
-                </form>
-
-                <!-- Tabla de jugadores -->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Foto</th>
-                            <th>Nombre</th>
-                            <th>Fecha de Nacimiento</th>
-                            <th>Nacionalidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <xsl:for-each select="Temporadas/Temporada[Numero=current()/@temporada]/Equipos/Equipo[Nombre=current()/@equipo]/Jugadores/Jugador">
-                            <tr>
-                                <td>
-                                    <img src="{Imagen}" alt="{Nombre}" width="50" height="50" />
-                                </td>
-                                <td>
-                                    <xsl:value-of select="Nombre" />
-                                </td>
-                                <td>
-                                    <xsl:value-of select="Nacimiento" />
-                                </td>
-                                <td>
-                                    <xsl:value-of select="Nacionalidad" />
-                                </td>
-                            </tr>
-                        </xsl:for-each>
-                    </tbody>
-                </table>
-            </body>
-        </html>
-    </xsl:template>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+  <xsl:output method="html" encoding="UTF-8" indent="yes" />
+  
+  <!-- Template principal -->
+  <xsl:template match="/">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Nacionalidad</th>
+          <th>Número de Camiseta</th>
+          <th>Retirado</th>
+          <th>Posición</th>
+          <th>Imagen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Iterar por cada jugador dentro de una temporada -->
+        <xsl:for-each select="Temporadas/Temporada/Equipos/Equipo/Jugadores/Jugador">
+          <tr>
+            <td><xsl:value-of select="IDju" /></td>
+            <td><xsl:value-of select="Nombre" /></td>
+            <td><xsl:value-of select="Nacimiento" /></td>
+            <td><xsl:value-of select="Nacionalidad" /></td>
+            <td><xsl:value-of select="NumCamiseta" /></td>
+            <td><xsl:value-of select="Retirado" /></td>
+            <td><xsl:value-of select="Posicion" /></td>
+            <td>
+              <img>
+                <xsl:attribute name="src">
+                  <xsl:value-of select="Imagen" />
+                </xsl:attribute>
+                <xsl:attribute name="alt">
+                  <xsl:value-of select="Nombre" />
+                </xsl:attribute>
+              </img>
+            </td>
+          </tr>
+        </xsl:for-each>
+      </tbody>
+    </table>
+  </xsl:template>
 </xsl:stylesheet>
