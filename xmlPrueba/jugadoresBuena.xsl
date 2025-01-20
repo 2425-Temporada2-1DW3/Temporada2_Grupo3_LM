@@ -23,7 +23,6 @@
                 </style>
             </head>
             <body>
-                <h1>Clasificación de Jugadores</h1>
                 
                 <!-- Formulario para seleccionar temporada -->
                 <form id="filterForm">
