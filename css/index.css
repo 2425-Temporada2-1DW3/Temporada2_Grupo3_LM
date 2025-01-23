@@ -229,3 +229,42 @@ footer li {
         width: 100%;
     }
 }
+
+/************************************************* Noticias *****************************************************************/
+
+.tabla-noticias {
+    text-align: center;
+    margin: 20px;
+}
+
+#contenedorNoticias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.noticia {
+    background-color: white;
+    width: 45%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.noticia img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+}
+
+.noticia h2 {
+    color: #333;
+    margin-top: 10px;
+}
+
+.noticia p {
+    color: #666;
+}
