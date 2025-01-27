@@ -2,10 +2,10 @@
     <h1>Clasificación</h1>
     <div class="listaTemporada">
         <form action="temporada">
-            <select name="temporadas" id="temporada">
-                <option value="temporada1">Temporada 1</option>
-                <option value="temporada2">Temporada 2</option>
-                <option value="temporada3">Temporada 3</option>
+            <select name="temporadas" id="temporada" onchange="actualizarTablaClasificacion()">
+                <option value="1">Temporada 1</option>
+                <option value="2">Temporada 2</option>
+                <option value="3">Temporada 3</option>
             </select>
         </form>
     </div>
@@ -14,8 +14,7 @@
 <div id="tablaClasificacion"></div>
 
 <script>
-    // Procesar XML y XSLT para mostrar la tabla
-    function cargarClasificacion(xmlUrl, xsltUrl, contenedorId) {
+    function cargarClasificacion(xmlUrl, xsltUrl, contenedorId, temporadaSeleccionada) {
         const xhr = new XMLHttpRequest();
         const xsl = new XMLHttpRequest();
 
@@ -34,11 +33,13 @@
                             const ex = new ActiveXObject("Msxml2.XSLTemplate");
                             const xsltProc = ex.createProcessor();
                             xsltProc.input = xmlDoc;
+                            xsltProc.addParameter("temporadaSeleccionada", temporadaSeleccionada);
                             xsltProc.transform();
                             document.getElementById(contenedorId).innerHTML = xsltProc.output;
                         } else {
                             const xsltProcessor = new XSLTProcessor();
                             xsltProcessor.importStylesheet(xsltDoc);
+                            xsltProcessor.setParameter(null, "temporadaSeleccionada", temporadaSeleccionada);
                             const resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
                             const contenedor = document.getElementById(contenedorId);
                             contenedor.innerHTML = ""; // Limpiar contenido previo
@@ -52,6 +53,11 @@
         xhr.send();
     }
 
-    // Llamar a la función con las rutas correctas
-    cargarClasificacion('../xmlPrueba/temporada.xml', '../xmlPrueba/clasificacionBuena.xsl', 'tablaClasificacion');
+    function actualizarTablaClasificacion() {
+        const temporadaSeleccionada = document.getElementById("temporada").value;
+        cargarClasificacion('../xmlPrueba/temporada.xml', '../xmlPrueba/clasificacionBuena.xsl', 'tablaClasificacion', temporadaSeleccionada);
+    }
+
+    // Cargar la clasificación inicial (primera temporada por defecto)
+    actualizarTablaClasificacion();
 </script>

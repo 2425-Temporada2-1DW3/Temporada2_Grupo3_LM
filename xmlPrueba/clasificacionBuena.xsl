@@ -53,7 +53,8 @@
                                             <xsl:value-of select="$posicion" />
                                         </td>
                                         <td>
-                                            <img src="{Imagen}" alt="{Nombre}" width="50" height="50" />
+                                            <!-- Extraer directamente el nombre de la imagen desde el XML -->
+                                            <img src="img\escudos\{Imagen}" alt="{Nombre}" width="50" height="50" />
                                         </td>
                                         <td>
                                             <xsl:value-of select="Nombre" />
