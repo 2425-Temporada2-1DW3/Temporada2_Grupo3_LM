@@ -1,0 +1,77 @@
+<div class="field-background">
+    <div class="current-match">
+      <h2>Equipos de la temporada Actual</h2> 
+        <div id="equipos" class="match-details">
+        </div>
+    </div>
+    <div class="about">
+        <h2>Quiénes Somos</h2>
+        <p>
+            Somos una plataforma dedicada a conectar a los fanáticos del fútbol con la información más actualizada de sus equipos favoritos. 
+            Nuestra aplicación te permite seguir las estadísticas de los equipos, consultar las clasificaciones, ver las jornadas actuales 
+            y recibir las últimas noticias del mundo del fútbol. Todo esto con una interfaz intuitiva y fácil de usar.
+        </p>
+        <p>
+            Además, ofrecemos funciones exclusivas como la comparación de equipos, perfiles detallados de jugadores, y 
+            un calendario interactivo para que no te pierdas ningún partido.
+        </p>
+        <p>
+            ¡Únete a nuestra comunidad y vive el fútbol de una manera diferente con nuestra aplicación!
+        </p>
+    </div>
+    
+    <div class="team-logos">
+        <img src="img\patricinador\adidas.png" alt="patricinador 3" class="team-logo">
+        <img src="img\patricinador\nike.png" alt="patricinador 4" class="team-logo">
+        <img src="img\patricinador\pepsi.png" alt="patricinador 5" class="team-logo">
+        <img src="img\patricinador\puma.png" alt="patricinador 6" class="team-logo">
+        <img src="img\patricinador\reebok.png" alt="patricinador 7" class="team-logo">
+    </div>
+</div>
+<script>
+  function cargarClasificacion(xmlUrl, xsltUrl, contenedorId) {
+    const xhr = new XMLHttpRequest();
+    const xsl = new XMLHttpRequest();
+
+    xhr.open("GET", xmlUrl, true);
+    xsl.open("GET", xsltUrl, true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            xsl.onreadystatechange = function () {
+                if (xsl.readyState === 4 && xsl.status === 200) {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+                    const xsltDoc = parser.parseFromString(xsl.responseText, "text/xml");
+
+                    if (window.ActiveXObject || "ActiveXObject" in window) {
+                        const ex = new ActiveXObject("Msxml2.XSLTemplate");
+                        const xsltProc = ex.createProcessor();
+                        xsltProc.input = xmlDoc;
+                        xsltProc.addParameter("estado", "Iniciada"); // Filtro por estado
+                        xsltProc.transform();
+                        document.getElementById(contenedorId).innerHTML = xsltProc.output;
+                    } else {
+                        const xsltProcessor = new XSLTProcessor();
+                        xsltProcessor.importStylesheet(xsltDoc);
+                        xsltProcessor.setParameter(null, "estado", "Iniciada"); // Filtro por estado
+                        const resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
+                        const contenedor = document.getElementById(contenedorId);
+                        contenedor.innerHTML = ""; // Limpiar contenido previo
+                        contenedor.appendChild(resultDocument);
+                    }
+                }
+            };
+            xsl.send();
+        }
+    };
+    xhr.send();
+}
+
+function actualizarTablaClasificacion() {
+    cargarClasificacion('../xmlPrueba/temporada.xml', '../xmlPrueba/equipo.xsl', 'equipos');
+}
+
+// Cargar la temporada iniciada al iniciar la página
+actualizarTablaClasificacion();
+</script>

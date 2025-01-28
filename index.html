@@ -24,8 +24,8 @@
                 });
             }
 
-            $("nav ul li a").on("click", function (e) {
-                //e.preventDefault(); // Evita comportamiento por defecto del enlace
+            $("nav ul li a, #logoLink").on("click", function (e) {
+                e.preventDefault(); // Evita comportamiento por defecto del enlace
                 var url = $(this).data("url");
                 var titulo = $(this).text();
                 cargarcontenido(url, titulo);
@@ -38,19 +38,21 @@
 </head>
 <body class="bodyOficial">
     <header>
-        <img src="./img/logo.png" width="80px" alt="Logo Txurdi Liga">
+        <a id="logoLink" data-url="./html/inicio.html" href="#">
+            <img src="./img/logo.png" width="80px" alt="Logo Txurdi Liga">
+        </a>
         <nav>
             <ul>
-                <li><a data-url="./html-prueba//inicio.html" href="#">Inicio</a></li>
-                <li><a  data-url="./html-prueba/jugadores.html" href="#">Jugadores</a></li>
-                <li><a  data-url="./html-prueba/clasificacion.html" href="#">Clasificación</a></li>
-                <li><a  data-url="./html-prueba/noticias.html" href="#">Noticias</a></li>
-                <li><a data-url="./html-prueba/contacto.html" href="#">Contacto</a></li>
+                <li><a data-url="./html/inicio.html" href="#">Inicio</a></li>
+                <li><a data-url="./html/jugadores.html" href="#">Jugadores</a></li>
+                <li><a data-url="./html/clasificacion.html" href="#">Clasificación</a></li>
+                <li><a data-url="./html/noticias.html" href="#">Noticias</a></li>
+                <li><a data-url="./html/contacto.html" href="#">Contacto</a></li>
             </ul>
         </nav>
     </header>
     <div class="main" id="main">
-         <!-- Contenido cargado dinámicamente -->
+        <!-- Contenido cargado dinámicamente -->
     </div>
     <footer>
         <div class="footer-top">

@@ -19,6 +19,7 @@
                 <xsl:for-each select="Temporadas/Temporada[Numero=$temporada]/Equipos/Equipo[Nombre=$equipo]/Jugadores/Jugador">
                     <tr>
                         <td><xsl:value-of select="IDju" /></td>
+                        <td><xsl:value-of select="Imagen" /></td>
                         <td><xsl:value-of select="Nombre" /></td>
                         <td><xsl:value-of select="Nacimiento" /></td>
                         <td><xsl:value-of select="Nacionalidad" /></td>

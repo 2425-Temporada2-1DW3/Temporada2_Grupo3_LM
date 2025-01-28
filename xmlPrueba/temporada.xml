@@ -2,7 +2,7 @@
 <Temporadas>
     <Temporada>
         <Numero>1</Numero>
-        <Estado>En curso</Estado>
+        <Estado>Iniciada</Estado>
         <Equipos>
             <Equipo>
                 <Nombre>Atlético Madrid</Nombre>
@@ -1110,7 +1110,7 @@
     </Temporada>
     <Temporada>
         <Numero>2</Numero>
-        <Estado>Por Empezar</Estado>
+        <Estado>Inactiva</Estado>
          <Equipos>
             <Equipo>
                 <Nombre>Atlético Madrid</Nombre>
@@ -2218,7 +2218,7 @@
     </Temporada>
     <Temporada>
         <Numero>3</Numero>
-        <Estado>Finalizado</Estado>
+        <Estado>Finalizada</Estado>
         <Equipos>
             <Equipo>
                 <Nombre>Atlético Madrid</Nombre>
