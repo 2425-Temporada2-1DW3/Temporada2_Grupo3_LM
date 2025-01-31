@@ -12,10 +12,10 @@
 
                     <!-- Iterar sobre los equipos de esa temporada -->
                     <xsl:for-each select="$temporadaIniciada/Equipos/Equipo">
-                        <img src="img/escudos/{Imagen}" alt="{Nombre}" class="team-logo" style="
-                            width: 70px;
-                            height: 70px;
-                        "/>
+                        <img src="img/escudos/{Imagen}" alt="{Nombre}" class="team-logo"
+                            width= "70px"
+                            height= "70px"
+                        />
                     </xsl:for-each>
 
                     <!-- Mostrar mensaje si no hay temporada iniciada -->
