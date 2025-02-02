@@ -18,12 +18,10 @@
                 <!-- Filtrar por temporada y equipo -->
                 <xsl:for-each select="Temporadas/Temporada[Numero=$temporada]/Equipos/Equipo[Nombre=$equipo]/Jugadores/Jugador">
                     <tr>
-                        <td><xsl:value-of select="IDju" /></td>
+                        <!-- <td><xsl:value-of select="IDju" /></td> -->
                         <td><xsl:value-of select="Imagen" /></td>
                         <td><xsl:value-of select="Nombre" /></td>
-                        <td><xsl:value-of select="Nacimiento" /></td>
-                        <td><xsl:value-of select="Nacionalidad" /></td>
-                        <td><xsl:value-of select="NumCamiseta" /></td>
+                        <td><xsl:value-of select="Edad" /></td>
                         <td><xsl:value-of select="Posicion" /></td>
                     </tr>
                 </xsl:for-each>

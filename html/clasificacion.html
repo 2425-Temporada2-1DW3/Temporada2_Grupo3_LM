@@ -3,9 +3,9 @@
     <div class="listaTemporada">
         <form action="temporada">
             <select name="temporadas" id="temporada" onchange="actualizarTablaClasificacion()">
-                <option value="1">Temporada 1</option>
-                <option value="2">Temporada 2</option>
-                <option value="3">Temporada 3</option>
+                <option value="2023">Temporada 1</option>
+                <option value="2024">Temporada 2</option>
+                <option value="2025">Temporada 3</option>
             </select>
         </form>
     </div>
@@ -14,50 +14,104 @@
 <div id="tablaClasificacion"></div>
 
 <script>
-    function cargarClasificacion(xmlUrl, xsltUrl, contenedorId, temporadaSeleccionada) {
-        const xhr = new XMLHttpRequest();
-        const xsl = new XMLHttpRequest();
+    // Función para cargar las temporadas desde el XML
+function cargarTemporadas() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "../xmlPrueba/temporada.xml", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const xmlDoc = xhr.responseXML;
 
-        xhr.open("GET", xmlUrl, true);
-        xsl.open("GET", xsltUrl, true);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                xsl.onreadystatechange = function () {
-                    if (xsl.readyState === 4 && xsl.status === 200) {
-                        const parser = new DOMParser();
-                        const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
-                        const xsltDoc = parser.parseFromString(xsl.responseText, "text/xml");
-
-                        if (window.ActiveXObject || "ActiveXObject" in window) {
-                            const ex = new ActiveXObject("Msxml2.XSLTemplate");
-                            const xsltProc = ex.createProcessor();
-                            xsltProc.input = xmlDoc;
-                            xsltProc.addParameter("temporadaSeleccionada", temporadaSeleccionada);
-                            xsltProc.transform();
-                            document.getElementById(contenedorId).innerHTML = xsltProc.output;
-                        } else {
-                            const xsltProcessor = new XSLTProcessor();
-                            xsltProcessor.importStylesheet(xsltDoc);
-                            xsltProcessor.setParameter(null, "temporadaSeleccionada", temporadaSeleccionada);
-                            const resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
-                            const contenedor = document.getElementById(contenedorId);
-                            contenedor.innerHTML = ""; // Limpiar contenido previo
-                            contenedor.appendChild(resultDocument);
-                        }
-                    }
-                };
-                xsl.send();
+            if (!xmlDoc) {
+                console.error("Error al cargar el XML.");
+                return;
             }
-        };
-        xhr.send();
-    }
 
-    function actualizarTablaClasificacion() {
-        const temporadaSeleccionada = document.getElementById("temporada").value;
-        cargarClasificacion('../xmlPrueba/temporada.xml', '../xmlPrueba/clasificacionBuena.xsl', 'tablaClasificacion', temporadaSeleccionada);
-    }
+            // Seleccionar todas las temporadas disponibles
+            const temporadas = xmlDoc.evaluate(
+                `/Temporadas/Temporada/Numero`,
+                xmlDoc,
+                null,
+                XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+                null
+            );
 
-    // Cargar la clasificación inicial (primera temporada por defecto)
+            // Limpiar el desplegable de temporadas
+            const temporadaSelect = document.getElementById("temporada");
+            temporadaSelect.innerHTML = ""; // Limpiar opciones previas
+
+            // Crear la opción de selección por defecto
+            const optionDefault = document.createElement("option");
+            optionDefault.value = "";
+            optionDefault.textContent = "--Selecciona una temporada--";
+            temporadaSelect.appendChild(optionDefault);
+
+            // Agregar las temporadas al desplegable
+            for (let i = 0; i < temporadas.snapshotLength; i++) {
+                const temporada = temporadas.snapshotItem(i).textContent;
+                const option = document.createElement("option");
+                option.value = temporada;
+                option.textContent = `Temporada ${temporada}`;
+                temporadaSelect.appendChild(option);
+            }
+
+            // Si hay al menos una temporada, cargar la clasificación de la primera temporada
+            if (temporadaSelect.options.length > 1) {
+                temporadaSelect.value = temporadaSelect.options[1].value;
+                actualizarTablaClasificacion();
+            }
+        }
+    };
+    xhr.send();
+}
+
+// Función para cargar la clasificación usando XSLT
+function cargarClasificacion(xmlUrl, xsltUrl, contenedorId, temporadaSeleccionada) {
+    const xhr = new XMLHttpRequest();
+    const xsl = new XMLHttpRequest();
+
+    xhr.open("GET", xmlUrl, true);
+    xsl.open("GET", xsltUrl, true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            xsl.onreadystatechange = function () {
+                if (xsl.readyState === 4 && xsl.status === 200) {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+                    const xsltDoc = parser.parseFromString(xsl.responseText, "text/xml");
+
+                    if (window.ActiveXObject || "ActiveXObject" in window) {
+                        const ex = new ActiveXObject("Msxml2.XSLTemplate");
+                        const xsltProc = ex.createProcessor();
+                        xsltProc.input = xmlDoc;
+                        xsltProc.addParameter("temporadaSeleccionada", temporadaSeleccionada);
+                        xsltProc.transform();
+                        document.getElementById(contenedorId).innerHTML = xsltProc.output;
+                    } else {
+                        const xsltProcessor = new XSLTProcessor();
+                        xsltProcessor.importStylesheet(xsltDoc);
+                        xsltProcessor.setParameter(null, "temporadaSeleccionada", temporadaSeleccionada);
+                        const resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
+                        const contenedor = document.getElementById(contenedorId);
+                        contenedor.innerHTML = ""; // Limpiar contenido previo
+                        contenedor.appendChild(resultDocument);
+                    }
+                }
+            };
+            xsl.send();
+        }
+    };
+    xhr.send();
+}
+
+// Función para actualizar la tabla de clasificación
+function actualizarTablaClasificacion() {
+    const temporadaSeleccionada = document.getElementById("temporada").value;
+    cargarClasificacion('../xmlPrueba/temporada.xml', '../xmlPrueba/clasificacionBuena.xsl', 'tablaClasificacion', temporadaSeleccionada);
+}
+
+// Cargar las temporadas al inicio
+cargarTemporadas();
     actualizarTablaClasificacion();
 </script>

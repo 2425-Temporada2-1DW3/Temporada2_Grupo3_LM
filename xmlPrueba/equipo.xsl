@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <!-- Parámetro que recibe el estado a buscar -->
-    <xsl:param name="estado" select="'Iniciada'" />
+    <xsl:param name="estado" select="'En Curso'" />
 
     <xsl:output method="html" indent="yes" encoding="UTF-8" />
 
@@ -20,7 +20,7 @@
 
                     <!-- Mostrar mensaje si no hay temporada iniciada -->
                     <xsl:if test="not($temporadaIniciada)">
-                        <p>No hay ninguna temporada en estado 'Iniciada' actualmente.</p>
+                        <p>No hay ninguna temporada en estado `En Curso` actualmente.</p>
                     </xsl:if>
     </xsl:template>
 </xsl:stylesheet>

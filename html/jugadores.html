@@ -5,9 +5,9 @@
         <!-- Formulario de selección de temporada -->
         <form action="temporada">
             <select name="temporadas" id="temporada">
-                <option value="1">Temporada 1</option>
-                <option value="2">Temporada 2</option>
-                <option value="3">Temporada 3</option>
+                <option value="2023">Temporada 2023</option>
+                <option value="2024">Temporada 2024</option>
+                <option value="2025">Temporada 2025</option>
             </select>
         </form>
 
@@ -23,15 +23,75 @@
 <div id="tablaJugadores"></div>
 
 <script>
+
+function cargarTemporadas() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "../xmlPrueba/temporada.xml");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const xmlDoc = xhr.responseXML;
+
+            if (!xmlDoc) {
+                console.error("Error al cargar el XML.");
+                return;
+            }
+
+            // Seleccionar todas las temporadas disponibles
+            const temporadas = xmlDoc.evaluate(
+                `/Temporadas/Temporada/Numero`,
+                xmlDoc,
+                null,
+                XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+                null
+            );
+
+            // Limpiar el desplegable de temporadas
+            const temporadaSelect = document.getElementById("temporada");
+            temporadaSelect.innerHTML = ""; // Limpiar opciones previas
+
+            // Crear la opción de selección por defecto
+            const optionDefault = document.createElement("option");
+            optionDefault.value = "";
+            optionDefault.textContent = "--Selecciona una temporada--";
+            temporadaSelect.appendChild(optionDefault);
+
+            // Agregar las temporadas al desplegable
+            for (let i = 0; i < temporadas.snapshotLength; i++) {
+                const temporada = temporadas.snapshotItem(i).textContent;
+                const option = document.createElement("option");
+                option.value = temporada;
+                option.textContent = `Temporada ${temporada}`;
+                temporadaSelect.appendChild(option);
+            }
+
+            // Si hay al menos una temporada, cargar los equipos de la primera temporada
+            if (temporadaSelect.options.length > 1) {
+                temporadaSelect.value = temporadaSelect.options[1].value;
+                cargarEquiposPorTemporada(temporadaSelect.value);
+            }
+        }
+    };
+    xhr.send();
+}
+// Llamar a la función para cargar las temporadas al inicio
+cargarTemporadas();
     // Esta función se encarga de cargar los equipos de una temporada
     function cargarEquiposPorTemporada(temporada) {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "../xmlPrueba/temporada.xml", true);
+        xhr.open("GET", "../xmlPrueba/temporada.xml");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 const xmlDoc = xhr.responseXML;
 
+                if (!xmlDoc) {
+    console.error("Error al cargar el XML.");
+    return;
+}
+
+
                 // Seleccionar los equipos correspondientes a la temporada seleccionada
+
+                console.log(temporada);
                 const equipos = xmlDoc.evaluate(
                     `/Temporadas/Temporada[Numero='${temporada}']/Equipos/Equipo/Nombre`,
                     xmlDoc,
@@ -96,7 +156,7 @@
                     const headerRow = document.createElement("tr");
 
                     // Crear encabezado de la tabla
-                    const headers = ["ID", "Imagen","Nombre", "Nacimiento", "Nacionalidad", "NumCamiseta", "Posicion"];
+                    const headers = ["Imagen","Nombre", "Edad", "Posicion"];
                     headers.forEach(headerText => {
                         const th = document.createElement("th");
                         th.textContent = headerText;
@@ -109,21 +169,18 @@
                         const jugador = jugadores.snapshotItem(i);
                         const row = document.createElement("tr");
 
-                        const id = jugador.querySelector("IDju").textContent;
                         const imagen = jugador.querySelector("Imagen").textContent;
                         const nombre = jugador.querySelector("Nombre").textContent;
-                        const nacimiento = jugador.querySelector("Nacimiento").textContent;
-                        const nacionalidad = jugador.querySelector("Nacionalidad").textContent;
-                        const numCamiseta = jugador.querySelector("NumCamiseta").textContent;
+                        const edad = jugador.querySelector("Edad").textContent;
                         const posicion = jugador.querySelector("Posicion").textContent;
 
-                        const data = [id, imagen, nombre, nacimiento, nacionalidad, numCamiseta, posicion];
+                        const data = [imagen, nombre, edad, posicion];
 
                         data.forEach((cellText, index) => {
         const td = document.createElement("td");
-        if (index === 1) { // Índice 1 corresponde a la columna de la imagen
+        if (index === 0) { // Índice 1 corresponde a la columna de la imagen
             const img = document.createElement("img");
-            img.src = `./img/${equipo.toLowerCase().replaceAll("\\s+", "_")}/${cellText}`; // URL de la imagen
+            img.src = `./img/${equipo.toLowerCase().replaceAll(" ", "_")}/${cellText}`; // URL de la imagen
             img.alt = `Imagen de ${nombre}`;
             img.style.width = "50px"; // Ajustar tamaño según prefieras
             img.style.height = "50px";
@@ -161,5 +218,5 @@
     });
 
     // Cargar los equipos de la temporada 1 al inicio
-    cargarEquiposPorTemporada(1);
+    cargarEquiposPorTemporada("2023");
 </script>

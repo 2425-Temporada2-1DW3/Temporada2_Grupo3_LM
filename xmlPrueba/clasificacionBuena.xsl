@@ -3,7 +3,7 @@
     <xsl:output method="html" encoding="UTF-8" indent="yes" />
 
     <!-- Definir parámetro para la temporada seleccionada -->
-    <xsl:param name="temporadaSeleccionada" select="'1'" />
+    <xsl:param name="temporadaSeleccionada" select="'2025'" />
 
     <!-- Plantilla principal -->
     <xsl:template match="/">

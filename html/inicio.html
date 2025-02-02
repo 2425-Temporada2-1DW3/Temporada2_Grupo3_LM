@@ -48,13 +48,13 @@
                         const ex = new ActiveXObject("Msxml2.XSLTemplate");
                         const xsltProc = ex.createProcessor();
                         xsltProc.input = xmlDoc;
-                        xsltProc.addParameter("estado", "Iniciada"); // Filtro por estado
+                        xsltProc.addParameter("estado", "En Curso"); // Filtro por estado
                         xsltProc.transform();
                         document.getElementById(contenedorId).innerHTML = xsltProc.output;
                     } else {
                         const xsltProcessor = new XSLTProcessor();
                         xsltProcessor.importStylesheet(xsltDoc);
-                        xsltProcessor.setParameter(null, "estado", "Iniciada"); // Filtro por estado
+                        xsltProcessor.setParameter(null, "estado", "En Curso"); // Filtro por estado
                         const resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
                         const contenedor = document.getElementById(contenedorId);
                         contenedor.innerHTML = ""; // Limpiar contenido previo

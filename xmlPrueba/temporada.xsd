@@ -6,7 +6,7 @@
                 <xs:element name="Temporada" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="Numero" type="xs:int"/>
+                            <xs:element name="Numero" type="xs:string"/>
                             <xs:element name="Estado" type="xs:string"/>
                             <xs:element name="Equipos">
                                 <xs:complexType>
@@ -21,12 +21,8 @@
                                                                 <xs:element name="Jugador" maxOccurs="unbounded">
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="IDju" type="xs:int"/>
                                                                             <xs:element name="Nombre" type="xs:string"/>
-                                                                            <xs:element name="Nacimiento" type="xs:date"/>
-                                                                            <xs:element name="Nacionalidad" type="xs:string"/>
-                                                                            <xs:element name="NumCamiseta" type="xs:int"/>
-                                                                            <xs:element name="Retirado" type="xs:string"/>
+                                                                            <xs:element name="Edad" type="xs:int"/>
                                                                             <xs:element name="Posicion" type="xs:string"/>
                                                                             <xs:element name="Imagen" type="xs:string"/>
                                                                         </xs:sequence>
@@ -59,7 +55,6 @@
                                                                             <xs:element name="EquipoVisitante" type="xs:string"/>
                                                                             <xs:element name="GolesLocal" type="xs:int"/>
                                                                             <xs:element name="GolesVisitante" type="xs:int"/>
-                                                                            <xs:element name="Estado" type="xs:string"/>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
