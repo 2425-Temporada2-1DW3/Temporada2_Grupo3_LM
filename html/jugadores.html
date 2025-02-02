@@ -123,7 +123,7 @@
         const td = document.createElement("td");
         if (index === 1) { // Índice 1 corresponde a la columna de la imagen
             const img = document.createElement("img");
-            img.src = `./img/jugadores/${cellText}`; // URL de la imagen
+            img.src = `./img/${equipo.toLowerCase().replaceAll("\\s+", "_")}/${cellText}`; // URL de la imagen
             img.alt = `Imagen de ${nombre}`;
             img.style.width = "50px"; // Ajustar tamaño según prefieras
             img.style.height = "50px";
