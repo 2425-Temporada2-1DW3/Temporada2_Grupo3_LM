@@ -60,7 +60,7 @@ function cargarTemporadas() {
                 const temporada = temporadas.snapshotItem(i).textContent;
                 const option = document.createElement("option");
                 option.value = temporada;
-                option.textContent = `Temporada ${temporada}`;
+                option.textContent = `${temporada}`;
                 temporadaSelect.appendChild(option);
             }
 
@@ -180,7 +180,7 @@ cargarTemporadas();
         const td = document.createElement("td");
         if (index === 0) { // Índice 1 corresponde a la columna de la imagen
             const img = document.createElement("img");
-            img.src = `./img/${equipo.toLowerCase().replaceAll(" ", "_")}/${cellText}`; // URL de la imagen
+            img.src = `./img/${equipo.trim().toLowerCase().replace(/\s+/g, "_").toLowerCase().replaceAll(" ", "_")}/${cellText.trim()}`; // URL de la imagen
             img.alt = `Imagen de ${nombre}`;
             img.style.width = "50px"; // Ajustar tamaño según prefieras
             img.style.height = "50px";

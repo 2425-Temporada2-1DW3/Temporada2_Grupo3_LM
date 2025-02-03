@@ -51,7 +51,7 @@ function cargarTemporadas() {
                 const temporada = temporadas.snapshotItem(i).textContent;
                 const option = document.createElement("option");
                 option.value = temporada;
-                option.textContent = `Temporada ${temporada}`;
+                option.textContent = `${temporada}`;
                 temporadaSelect.appendChild(option);
             }
 

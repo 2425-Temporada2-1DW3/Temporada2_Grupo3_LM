@@ -54,7 +54,11 @@
                                         </td>
                                         <td>
                                             <!-- Extraer directamente el nombre de la imagen desde el XML -->
-                                            <img src="img\escudos\{Imagen}" alt="{Nombre}" width="50" height="50" />
+                                         <img src="img/{translate(translate(normalize-space(Nombre), ' ', '_'), 
+'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
+'abcdefghijklmnopqrstuvwxyz')}/{normalize-space(Imagen)}" 
+alt="{Nombre}" width="50" height="50" />
+
                                         </td>
                                         <td>
                                             <xsl:value-of select="Nombre" />
