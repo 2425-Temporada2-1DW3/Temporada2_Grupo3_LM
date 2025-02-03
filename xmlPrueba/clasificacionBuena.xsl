@@ -29,9 +29,10 @@
                         <xsl:for-each select="Temporadas/Temporada">
                             <xsl:if test="Numero=$temporadaSeleccionada">
                                 <!-- Iterar sobre equipos -->
-                                <xsl:for-each select="Equipos/Equipo">
+                                <xsl:for-each
+                                    select="Equipos/Equipo">
                                     <!-- Ordenar por puntos -->
-                                    <xsl:sort 
+                                    <xsl:sort
                                         select="count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
                                             (EquipoLocal=current()/Nombre and GolesLocal &gt; GolesVisitante) or
                                             (EquipoVisitante=current()/Nombre and GolesVisitante &gt; GolesLocal)
@@ -39,13 +40,14 @@
                                         count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
                                             (EquipoLocal=current()/Nombre or EquipoVisitante=current()/Nombre) and 
                                             GolesLocal=GolesVisitante
-                                        ])" 
-                                        data-type="number" 
-                                        order="descending" 
+                                        ])"
+                                        data-type="number"
+                                        order="descending"
                                     />
 
                                     <!-- Crear una variable para la posición -->
-                                    <xsl:variable name="posicion" select="position()" />
+                                    <xsl:variable name="posicion"
+                                        select="position()" />
 
                                     <tr>
                                         <td>
@@ -53,11 +55,13 @@
                                             <xsl:value-of select="$posicion" />
                                         </td>
                                         <td>
-                                            <!-- Extraer directamente el nombre de la imagen desde el XML -->
-                                         <img src="img/{translate(translate(normalize-space(Nombre), ' ', '_'), 
+                                            <!-- Extraer directamente el nombre de la imagen desde
+                                            el XML -->
+                                            <img
+                                                src="img/{translate(translate(normalize-space(Nombre), ' ', '_'), 
 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
-'abcdefghijklmnopqrstuvwxyz')}/{normalize-space(Imagen)}" 
-alt="{Nombre}" width="50" height="50" />
+'abcdefghijklmnopqrstuvwxyz')}/{normalize-space(Imagen)}"
+                                                alt="{Nombre}" width="50" height="50" />
 
                                         </td>
                                         <td>
@@ -66,31 +70,32 @@ alt="{Nombre}" width="50" height="50" />
                                         <td>
                                             <!-- Contar partidos jugados -->
                                             <xsl:variable name="partidosJugados">
-                                                <xsl:value-of 
+                                                <xsl:value-of
                                                     select="count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
-                                                        EquipoLocal=current()/Nombre or 
-                                                        EquipoVisitante=current()/Nombre
-                                                    ])" 
+            (EquipoLocal=current()/Nombre or EquipoVisitante=current()/Nombre) and
+            (GolesLocal != -1 and GolesVisitante != -1)
+        ])"
                                                 />
                                             </xsl:variable>
+
                                             <xsl:value-of select="$partidosJugados" />
                                         </td>
                                         <td>
                                             <!-- Calcular puntos -->
                                             <xsl:variable name="victorias">
-                                                <xsl:value-of 
+                                                <xsl:value-of
                                                     select="count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
-                                                        (EquipoLocal=current()/Nombre and GolesLocal &gt; GolesVisitante) or
-                                                        (EquipoVisitante=current()/Nombre and GolesVisitante &gt; GolesLocal)
-                                                    ])" 
+            (EquipoLocal=current()/Nombre and GolesLocal > GolesVisitante and GolesLocal != -1 and GolesVisitante != -1) or
+            (EquipoVisitante=current()/Nombre and GolesVisitante > GolesLocal and GolesLocal != -1 and GolesVisitante != -1)
+        ])"
                                                 />
                                             </xsl:variable>
                                             <xsl:variable name="empates">
-                                                <xsl:value-of 
+                                                <xsl:value-of
                                                     select="count(ancestor::Temporada/Jornadas/Jornada/Partidos/Partido[
-                                                        (EquipoLocal=current()/Nombre or EquipoVisitante=current()/Nombre) and 
-                                                        GolesLocal=GolesVisitante
-                                                    ])" 
+            (EquipoLocal=current()/Nombre or EquipoVisitante=current()/Nombre) and 
+            GolesLocal = GolesVisitante and GolesLocal != -1 and GolesVisitante != -1
+        ])"
                                                 />
                                             </xsl:variable>
                                             <xsl:value-of select="($victorias * 3) + $empates" />
